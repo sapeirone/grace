@@ -1,0 +1,26 @@
+# Grace model. The defaults are the paper's video GRACE (the recipe of checkpoints/video/grace.pth).
+
+_target_: models.grace.Grace
+hidden_size: 1024
+# Loss weights
+loss_weight_rec: 1.0
+loss_weight_concepts: 0.1
+loss_weight_ent_reg: 0.01  # Regularization of the reconstruction weights (see reg_strategy)
+# Projection of the concept embeddings before the reconstruction (linear, linear_nobias, ortholinear, mlp, identity)
+proj_type: ortholinear
+# Activation function of the highlighter scores
+scoring_act_func: sigmoid # or tanh
+# Temperatures of the visual reconstruction loss and of the reconstruction-weights softmax
+visual_rec_temperature: 0.05
+reconstruction_temperature: 0.05
+dirichlet_alpha: 0.5
+# Regularization strategy
+reg_strategy: dirichlet
+# Symmetric JSD loss
+symm_jsd: True
+# Gram geometric regularization
+gram_regularization: True
+# Center visual features before computing activations
+center_before_activations: False
+threshold: 0.01
+soft_gating: True

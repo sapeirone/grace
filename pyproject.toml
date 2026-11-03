@@ -1,0 +1,41 @@
+[project]
+name = "grace"
+version = "0.1.0"
+description = "A General Concept-based Decomposition for Vision-Language Embeddings"
+requires-python = ">=3.11"
+# Dependencies: requirements.txt (exact pins), installed as in the README.
+
+# Settings picked up by `uv pip install -r requirements.txt` when run from the repo root.
+[tool.uv]
+# openai/CLIP's setup.py imports pkg_resources, which setuptools >= 81 no longer ships.
+build-constraint-dependencies = ["setuptools==80.9.0"]
+
+# perception_models' own requirements.txt is a whole training stack (lm-eval, webdataset, ...);
+# `core.vision_encoder` only needs these.
+[[tool.uv.dependency-metadata]]
+name = "perception-models"
+version = "1.0.0"
+requires-dist = ["torch", "torchvision", "timm", "huggingface-hub", "ftfy", "regex", "einops", "numpy"]
+
+[tool.uv.pip]
+# torch/torchvision come from the PyTorch cu124 index, everything else from PyPI.
+index-strategy = "unsafe-best-match"
+
+[tool.ruff]
+line-length = 200
+target-version = "py311"
+# The ConViS-Bench authors' evaluation code keeps its own style.
+extend-exclude = ["evals/convisbench"]
+
+[tool.ruff.lint]
+# pycodestyle, pyflakes, isort, pyupgrade (modern typing), bugbear
+select = ["E", "W", "F", "I", "UP", "B"]
+# Long lines are left to the formatter; strings and comments it can't split are fine.
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["data", "evals", "models", "scripts", "tests", "train", "train_image", "utils"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

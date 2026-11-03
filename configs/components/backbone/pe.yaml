@@ -1,0 +1,3 @@
+_target_: models.backbones.pe.PEBackbone
+
+variant: 'PE-Core-L14-336'

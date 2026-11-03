@@ -1,0 +1,4 @@
+_target_: data.imagenet.ImageNetDataset
+
+root: ${data_root}/imagenet
+split: val

@@ -1,0 +1,19 @@
+# @package _global_
+# GRACE (video) evaluated zero-shot on Charades-Ego action recognition: same composition as
+# `grace/egomcq`, with Charades-Ego as the validation dataset.
+defaults:
+  - /_base_
+  - /model@model: grace
+  - override /dataset@val_dataset: charades
+  - _self_
+
+model: ???
+
+# As in the paper's runs (it matters for SpLiCE, see splice/charades.yaml)
+batch_size: 8
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components

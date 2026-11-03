@@ -1,0 +1,30 @@
+# @package _global_
+# GRACE on TIPSv2-L14 (LAION vocabulary), evaluated on ADE20k concept localization: per-patch
+# reconstruction weights vs the ADE20k semantic segmentation, as patch-level AUPRC.
+defaults:
+  - /_base_image_
+  - /model@model: grace
+  - /dataset@dataset: ade20k
+  - override /backbone@backbone: tipsv2
+  - _self_
+
+model: ???
+dataset: ???
+
+# Image loading only; the backbone and GRACE run one image at a time.
+batch_size: 32
+num_workers: 4
+
+# evals/ade20k_visualize.py: validation images (indices in sorted filename order), concepts per
+# image, output file (format from the extension; null: top_concepts_val.jpg in the Hydra run
+# directory) and resolution. Images and concepts default to the paper's Figure 6.
+vis_indices: [228, 585, 1561]
+vis_top_k: 3
+vis_output: null
+vis_dpi: 120
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components

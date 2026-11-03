@@ -1,0 +1,6 @@
+_target_: models.backbones.tipsv2.TIPSv2Backbone
+
+variant: tipsv2-l14
+# Hugging Face revision of google/tipsv2-l14 the released checkpoint was evaluated with
+revision: 52847a71eb02a3082c370fbcd98cd799687bd4d0
+input_size: 448

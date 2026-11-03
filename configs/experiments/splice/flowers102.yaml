@@ -1,0 +1,22 @@
+# @package _global_
+defaults:
+  - /_base_image_
+  - /model@model: splice
+  - /dataset@dataset: flowers102
+  - _self_
+
+dataset: ???
+dataset_name: flowers102
+
+model:
+  l1_penalty: 0.25
+
+concepts_path: data/concepts_vocs/image/laion_bigrams.txt
+# Mean CLIP ViT-B/32 visual feature over the evaluated split; computed and saved here on first run.
+visual_mean_path: data/means/flowers102_test_clip_ViT-B-32.pt
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components

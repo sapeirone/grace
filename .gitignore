@@ -1,0 +1,27 @@
+__pycache__
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+outputs
+*.log
+
+# Annotations, extracted features and so on
+data/raw
+
+# Released checkpoints (copied locally, too large for git)
+checkpoints/
+
+# ConVisBench: benchmark videos, extracted features and generated outputs
+evals/convisbench/data/
+evals/convisbench/visual_features/
+
+# Local Claude Code state
+.claude/
+
+# Default data root (see configs/defaults.yaml)
+grace_data/
+
+# Local, not part of the release
+paper.pdf
+.vscode/

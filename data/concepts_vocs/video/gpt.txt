@@ -1,0 +1,414 @@
+walking
+running
+jogging
+sprinting
+standing
+sitting
+lying down
+kneeling
+crouching
+jumping
+hopping
+skipping
+climbing
+descending
+falling
+tripping
+balancing
+stretching
+bending
+twisting
+turning
+reaching
+grasping
+holding
+releasing
+throwing
+catching
+kicking
+punching
+pushing
+pulling
+lifting
+carrying
+dragging
+dropping
+placing
+stacking
+unstacking
+opening
+closing
+locking
+unlocking
+pressing
+tapping
+swiping
+typing
+writing
+drawing
+erasing
+reading
+pointing
+waving
+clapping
+snapping fingers
+shaking hands
+hugging
+kissing
+greeting
+saluting
+signaling
+gesturing
+talking
+speaking
+whispering
+shouting
+singing
+laughing
+crying
+yawning
+coughing
+sneezing
+breathing
+eating
+drinking
+chewing
+swallowing
+cooking
+baking
+frying
+boiling
+cutting
+chopping
+slicing
+peeling
+stirring
+mixing
+pouring
+serving
+cleaning
+washing
+drying
+wiping
+scrubbing
+sweeping
+mopping
+vacuuming
+dusting
+organizing
+sorting
+folding
+unfolding
+packing
+unpacking
+assembling
+disassembling
+repairing
+fixing
+installing
+removing
+decorating
+painting
+drawing (artistic)
+sculpting
+crafting
+knitting
+sewing
+ironing
+gardening
+planting
+watering plants
+harvesting
+digging
+raking
+driving
+steering
+braking
+accelerating
+parking
+cycling
+skateboarding
+rollerblading
+skiing
+snowboarding
+surfing
+swimming
+diving
+floating
+rowing
+sailing
+fishing
+hiking
+camping
+dancing
+spinning
+jumping rope
+playing sports
+running (sports context)
+passing ball
+shooting ball
+dribbling
+serving (tennis/volleyball)
+blocking
+tackling
+goalkeeping
+training
+exercising
+weightlifting
+stretching (fitness)
+yoga
+meditating
+sleeping
+resting
+waking up
+getting dressed
+undressing
+putting on shoes
+taking off shoes
+brushing hair
+combing hair
+styling hair
+shaving
+applying makeup
+washing face
+brushing teeth
+flossing
+taking shower
+taking bath
+using phone
+scrolling
+texting
+calling
+video calling
+taking photos
+recording video
+watching screen
+using computer
+coding
+gaming
+reading book
+writing notes
+studying
+teaching
+presenting
+listening
+observing
+inspecting
+measuring
+calculating
+planning
+thinking
+deciding
+arguing
+debating
+negotiating
+agreeing
+disagreeing
+comforting
+encouraging
+helping
+assisting
+guiding
+leading
+following
+waiting
+queueing
+shopping
+paying
+scanning items
+bagging items
+ordering food
+serving customers
+working
+collaborating
+meeting
+handing over object
+receiving object
+signing
+stamping
+mailing
+delivering
+loading
+unloading
+entering room
+exiting room
+crossing street
+navigating
+exploring
+touring
+taking transportation
+boarding
+alighting
+standing in vehicle
+sitting in vehicle
+window
+door
+table
+chair
+sofa
+bed
+desk
+shelf
+cabinet
+drawer
+lamp
+light
+fan
+air conditioner
+heater
+television
+computer
+laptop
+keyboard
+mouse
+phone
+tablet
+book
+notebook
+pen
+pencil
+paper
+bag
+backpack
+wallet
+keys
+glasses
+watch
+clothes
+shirt
+pants
+jacket
+shoes
+hat
+food
+drink
+plate
+bowl
+cup
+glass
+bottle
+utensils
+knife
+fork
+spoon
+pan
+pot
+stove
+oven
+sink
+refrigerator
+microwave
+dishwasher
+trash can
+broom
+mop
+vacuum cleaner
+towel
+soap
+toothbrush
+toothpaste
+mirror
+bedsheet
+pillow
+blanket
+plant
+flower
+tree
+grass
+road
+sidewalk
+car
+bus
+train
+bicycle
+motorcycle
+boat
+airplane
+ticket
+screen
+monitor
+camera
+tripod
+microphone
+speaker
+remote control
+controller
+toy
+ball
+tool
+hammer
+screwdriver
+wrench
+drill
+ladder
+box
+package
+envelope
+document
+badge
+card
+money
+coin
+credit card
+receipt
+counter
+register
+shelf (store)
+cart
+basket
+product
+sign
+poster
+whiteboard
+chalkboard
+map
+clock
+calendar
+door handle
+switch
+button
+lever
+rope
+chain
+fence
+gate
+stairs
+elevator
+escalator
+corridor
+hallway
+room
+kitchen
+bathroom
+bedroom
+office
+classroom
+store
+restaurant
+cafe
+park
+street
+building
+vehicle interior
+outdoor scene
+indoor scene
+crowd
+person
+group
+child
+adult
+elderly person
+worker
+customer
+teacher
+student
+driver
+athlete
+performer
+speaker
+listener
+pet
+dog
+cat
+bird
+animal

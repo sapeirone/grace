@@ -1,0 +1,23 @@
+# @package _global_
+# SpLiCE (training-free) evaluated on Charades-Ego action recognition: same composition as
+# `splice/egomcq` (model, λ = 0.1, the 700-concept vocabulary, EgoClip visual mean), with Charades-Ego as
+# the validation dataset.
+defaults:
+  - /_base_
+  - /model@model: splice
+  - override /dataset@val_dataset: charades
+  - _self_
+
+model: ???
+
+# Mean PE visual feature over the EgoClip training set (same as `splice/egomcq`).
+visual_mean_path: data/means/egoclip_PE-Core-L14-336.pt
+
+# As in the paper's runs: SpLiCE's ADMM stops on a batch-wide residual, so the batch size matters
+batch_size: 8
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components

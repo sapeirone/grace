@@ -1,0 +1,16 @@
+# @package _global_
+defaults:
+  - /_base_
+  - /model@model: splice
+  - _self_
+
+model: ???
+
+# Mean PE visual feature over the EgoClip training set; computed and saved here on first run.
+visual_mean_path: data/means/egoclip_PE-Core-L14-336.pt
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components

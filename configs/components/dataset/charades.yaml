@@ -1,0 +1,7 @@
+_target_: data.charades_ego.CharadesEgoDataset
+
+anns_root: ${data_root}/charades_ego/annotations
+videos_root: ${data_root}/charades_ego/videos
+split: test
+# Frames uniformly sampled from each (raw, decoded) video
+num_frames: 16

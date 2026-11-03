@@ -1,0 +1,22 @@
+# Default configuration file for all experiments
+
+name: base
+seed: 1234567891
+
+# Number of workers of the dataloader(s), e.g. `num_workers=0` on the command line to load in the main process
+num_workers: 8
+num_epochs: 5
+batch_size: 128
+
+resume_from: null
+
+# Root of the datasets (see scripts/download_data.py and scripts/check_data.py): the GRACE_DATA
+# environment variable, or grace_data/ in the repository root
+data_root: ${oc.env:GRACE_DATA,grace_data}
+
+# save models
+save_checkpoints: True
+
+defaults:
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog

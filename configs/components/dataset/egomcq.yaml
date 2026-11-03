@@ -1,0 +1,8 @@
+_target_: data.egomcq.EgoMCQDataset
+
+anns_root: ${data_root}/ego4d/annotations
+features_root: ${data_root}/ego4d/features/EgoMCQ_PE-Core-L14-336
+videos_root: ${data_root}/ego4d/videos
+
+# Frames decoded per clip when raw videos are read instead of features (ret_videos=True)
+num_frames: 16

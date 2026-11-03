@@ -1,0 +1,14 @@
+defaults:
+  - defaults
+  - dataset@train_dataset: egoclip
+  - dataset@val_dataset: egomcq
+  - backbone@backbone: pe
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog
+  - _self_
+
+batch_size: 128
+
+
+# Path to the concepts vocabulary
+concepts_path: data/concepts_vocs/video/egoclip_verbs_nouns.txt

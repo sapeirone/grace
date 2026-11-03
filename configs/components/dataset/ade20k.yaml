@@ -1,0 +1,7 @@
+_target_: data.ade20k.ADE20KDataset
+
+# ADE20k SceneParsing (ADEChallengeData2016)
+root: ${data_root}/ade20k/ADEChallengeData2016
+# Patch grid of the backbone (448px / 14px patches for TIPSv2-L14)
+grid: 32
+patch_size: 14

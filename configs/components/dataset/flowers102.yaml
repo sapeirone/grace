@@ -1,0 +1,5 @@
+_target_: data.flowers102.Flowers102Dataset
+
+# torchvision's layout: the images are under <root>/flowers-102
+root: ${data_root}
+split: test

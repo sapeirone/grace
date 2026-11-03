@@ -1,0 +1,32 @@
+# Perception Encoder features of EgoClip / EgoMCQ (scripts/extract_ego4d_features.py), e.g.
+#   python -m scripts.extract_ego4d_features dataset=egomcq output_dir=/path/to/EgoMCQ_PE-Core-L14-336
+defaults:
+  - dataset: egoclip
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog
+  - _self_
+
+# Root of the datasets, as in configs/defaults.yaml
+data_root: ${oc.env:GRACE_DATA,grace_data}
+
+num_workers: 8
+
+# Output directory: one shard per video under shards/, merged into features.pt once all are there
+output_dir: ???
+
+# Video-language backbone
+model:
+  _target_: models.backbones.pe.PEBackbone
+
+# Clips per batch (an EgoMCQ question has 5 clips, so 32 clips = 6 questions)
+batch_size: 32
+
+# Split the videos into `num_slices` parallel jobs and process slice `slice` (0: a single job)
+num_slices: 0
+slice: 0
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components

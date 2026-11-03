@@ -1,0 +1,16 @@
+# @package _global_
+defaults:
+  - /_base_image_
+  - /model@model: grace
+  - /dataset@dataset: food101
+  - _self_
+
+model: ???
+dataset: ???
+dataset_name: food101
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components

@@ -1,0 +1,5 @@
+_target_: data.flickr30k.Flickr30kDataset
+
+root: ${data_root}/flickr30k
+# Retrieval is evaluated on the entire dataset (not just the "test" split), as in the paper.
+split: all

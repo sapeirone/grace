@@ -1,0 +1,25 @@
+# @package _global_
+defaults:
+  - /_base_image_
+  - /model@model: splice
+  - /dataset@dataset: coco
+  - _self_
+
+dataset: ???
+dataset_name: coco
+
+model:
+  l1_penalty: 0.25
+
+# Retrieval is computed in-batch, so batch_size determines the reported R@k (same as grace/<dataset>.yaml).
+batch_size: 1000
+
+concepts_path: data/concepts_vocs/image/laion_bigrams.txt
+# Mean CLIP ViT-B/32 visual feature over the evaluated split; computed and saved here on first run.
+visual_mean_path: data/means/coco_val_clip_ViT-B-32.pt
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components

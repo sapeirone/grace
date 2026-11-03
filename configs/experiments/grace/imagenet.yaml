@@ -1,0 +1,21 @@
+# @package _global_
+defaults:
+  - /_base_image_
+  - /model@model: grace
+  - /dataset@dataset: imagenet
+  - _self_
+
+model: ???
+dataset: ???
+dataset_name: imagenet
+
+# Compositional generalization: restrict evaluation to the test classes of one fold
+# (e.g. folds_path=data/folds/imagenet_class_folds_concept_disjoint.json fold_id=0).
+folds_path: null
+fold_id: null
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components

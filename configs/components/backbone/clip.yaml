@@ -1,0 +1,3 @@
+_target_: models.backbones.clip.CLIPBackbone
+
+variant: 'ViT-B/32'

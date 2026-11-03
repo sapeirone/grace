@@ -1,0 +1,4 @@
+_target_: data.coco.CocoDataset
+
+root: ${data_root}/coco
+split: val

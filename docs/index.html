@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GRACE: Concept-based Decomposition</title>
+    <meta name="description" content="GRACE decomposes the visual embeddings of vision-language models into human-interpretable concepts, for images and videos. NeurIPS 2026." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="assets/style.css" rel="stylesheet" />
+</head>
+<body>
+<main class="shell">
+    <header class="hero">
+        <div class="hero-body">
+            <span class="venue">NeurIPS 2026</span>
+            <h1><span class="brand">GRACE</span>: A General Concept-based Decomposition for Vision&ndash;Language Embeddings</h1>
+            <p class="authors">
+                <a class="author-link" href="https://scholar.google.com/citations?user=K0efPssAAAAJ" target="_blank" rel="noopener noreferrer">Simone Alberto Peirone<sup>1,*</sup></a><span>,</span>
+                <a class="author-link" href="https://scholar.google.com/citations?user=zv_5eUsAAAAJ" target="_blank" rel="noopener noreferrer">Ortal Senouf<sup>2</sup></a><span>,</span>
+                <a class="author-link" href="https://scholar.google.com/citations?user=7MJdvzYAAAAJ" target="_blank" rel="noopener noreferrer">Francesca Pistilli<sup>1</sup></a><span>,</span>
+                <a class="author-link" href="https://scholar.google.com/citations?user=i4rm0tYAAAAJ" target="_blank" rel="noopener noreferrer">Giuseppe Averta<sup>1</sup></a><span>,</span>
+                <a class="author-link" href="https://scholar.google.com/citations?user=-Ve9sJ0AAAAJ" target="_blank" rel="noopener noreferrer">Pascal Frossard<sup>2</sup></a>
+            </p>
+            <p class="affiliations"><sup>1</sup>Politecnico di Torino, Italy &nbsp;&middot;&nbsp; <sup>2</sup>EPFL, Switzerland</p>
+            <p class="footnote"><sup>*</sup>Work carried out while visiting EPFL</p>
+            <div class="links">
+                <!-- TODO: arXiv link -->
+                <a class="link-btn" href="#" aria-label="Paper on arXiv">
+                    <svg class="link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h7l5 5v15H7V2zm7 1.5V8h4.5L14 3.5zM9 12h8v1.5H9V12zm0 3h8v1.5H9V15zm0 3h6v1.5H9V18z"/></svg>
+                    Paper
+                </a>
+                <a class="link-btn" href="https://github.com/sapeirone/GRACE" aria-label="Code on GitHub">
+                    <img class="link-icon" src="https://cdn.simpleicons.org/github/white" alt="" aria-hidden="true" />
+                    Code
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="section-body">
+            <div class="teaser-card">
+                <!-- Built by docs/build_teaser.py (also: teaser_cooking.mp4 / teaser_cooking_poster.jpg, the --set cooking examples) -->
+                <div class="teaser-media">
+                    <video class="teaser-video" autoplay muted loop playsinline preload="auto" poster="assets/img/teaser_crafts_poster.jpg" aria-label="GRACE decomposing three egocentric video clips from Ego4D into their top concepts">
+                        <source src="assets/img/teaser_crafts.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                <p class="tldr">
+                    <i>
+                        GRACE decomposes the visual embeddings of a VLM into a sparse set of <strong>human-understandable concepts</strong>. Its decomposition transfers across tasks and domains, preserving the <strong>geometry of the embedding space</strong>.
+                    </i>
+                </p>
+                <div class="teaser-highlights">
+                    <article class="teaser-highlight">
+                        <span class="teaser-highlight-tag">Interpretability</span>
+                        <h3>🧩 Concept decomposition</h3>
+                        <p>GRACE decomposes the visual embeddings of a frozen Vision-Language Model into a sparse set of <strong>human-understandable</strong> concepts.</p>
+                    </article>
+                    <article class="teaser-highlight">
+                        <span class="teaser-highlight-tag">Geometry</span>
+                        <h3>📐 Geometry-based reconstruction</h3>
+                        <p>Our approach preserves the geometric structure of the visual embeddings, leading to more robust and interpretable decompositions.</p>
+                    </article>
+                    <article class="teaser-highlight">
+                        <span class="teaser-highlight-tag">Generalization</span>
+                        <h3>🌍 General &amp; faithful</h3>
+                        <p>The decomposition learned by GRACE transfers across different tasks, datasets and domains. The reconstructed embeddings remain faithful to the original model.</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-head">
+            <h2>💡 Do VLMs see the world the way we describe it?</h2>
+        </div>
+        <div class="section-body prose">
+            <p>
+                Humans understand the world by decomposing it into <u>atomic semantic abstractions</u>, and natural language enable us to express and compose these abstractions into rich descriptions. Vision&ndash;Language Models align their visual representations with this language-based compositional structure, but visual data are complex and encode many <u>tightly entangled</u> concepts, especially in videos, where objects, actions and human motion co-occur and evolve over time. 
+                <strong>Understanding how VLMs represent this structure is crucial to better understand their predictions</strong>, and to building more robust and general models.
+            </p>
+            <p>
+                Prior works decompose visual embeddings into text-based concepts with <em>instance-level</em> optimization (SpLiCE), or build surrogate representations through the use of external captioning models (EXPLAIN-R). Neither of these approaches leverages the intrinsic concept-based structure of the visual embedding space.
+            </p>
+            <div class="callout">
+                <p>
+                    💡 We introduce <strong>GRACE</strong>, a framework that learns a <strong>concept-based decomposition</strong> of the visual embedding space.
+                    Our approach collects concept evidence directly from the visual input, calibrates it, and reconstructs the embedding from the matched concepts while preserving the global geometry of the original embedding space, ensuring that the relations between samples are preserved. 
+                    The resulting decomposition is <strong>faithful, robust and general</strong>, and transfers across tasks, datasets and domains.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-head">
+            <h2>⚙️ The GRACE framework</h2>
+        </div>
+        <div class="section-body prose">
+            <figure class="figure">
+                <img src="assets/img/method_cropped.png" alt="The GRACE framework: concept embeddings and visual embeddings are matched into visual evidence, calibrated by an MLP, turned into reconstruction weights with a softmax, and used to reconstruct the visual embedding through an orthogonal projection Q." loading="lazy" />
+                <figcaption>Given a visual sample and a vocabulary of human-interpretable concepts, GRACE decomposes the visual embedding into semantically relevant concept contributions. Then, it reconstructs the visual embedding from the calibrated concept weights. These embeddings can be used in place of the original visual embeddings for downstream tasks.</figcaption>
+            </figure>
+            <div class="stage-grid">
+                <article class="stage">
+                    <span class="stage-tag">Step 1</span>
+                    <h3>🔎 Visual evidence</h3>
+                    <p>The visual embedding is matched against the text embeddings of a large vocabulary of human-understandable concepts by cosine similarity.</p>
+                </article>
+                <article class="stage">
+                    <span class="stage-tag">Step 2</span>
+                    <h3>🎚️ Calibration</h3>
+                    <p>A calibration step calibrates the relevance of each concept, keeping only a few per sample, and removing irrelevant or duplicated concepts.</p>
+                </article>
+                <article class="stage">
+                    <span class="stage-tag">Step 3</span>
+                    <h3>🧱 Reconstruction</h3>
+                    <p>The visual embeddings are reconstructed from the calibrated concept weights. A learnable <strong>orthogonal</strong> projection <span class="math">Q</span> prevents further entangling of the concepts.</p>
+                </article>
+            </div>
+
+            <!--h3 class="sub-head">Training objectives</h3>
+            <figure class="figure">
+                <img src="assets/img/objectives.png" alt="Retrieval consistency, isometry, sparsity regularization and consistency regularization objectives." loading="lazy" />
+            </figure>
+            <div class="objective-grid">
+                <article class="objective">
+                    <h4>Retrieval consistency</h4>
+                    <p>A contrastive loss ranks each reconstructed embedding closest to its own original embedding among the batch.</p>
+                </article>
+                <article class="objective">
+                    <h4>Isometry</h4>
+                    <p>The pairwise cosine similarities of the reconstructed embeddings match those of the originals: <span class="math">&#8214;Z&#771;Z&#771;<sup>T</sup> &minus; ZZ<sup>T</sup>&#8214;<sub>F</sub><sup>2</sup></span>.</p>
+                </article>
+                <article class="objective">
+                    <h4>Sparsity</h4>
+                    <p>A symmetric Dirichlet prior on <span class="math">w<sub>i</sub></span> compresses each sample into a few significant concepts, with a tunable concentration <span class="math">&omega;</span>.</p>
+                </article>
+                <article class="objective">
+                    <h4>Consistency</h4>
+                    <p>A Jensen&ndash;Shannon term pulls the weights of samples from the same category together, and pushes the others apart.</p>
+                </article>
+            </div>
+            <p class="note">Rather than requiring an exact reconstruction, which the modality gap between visual and text embeddings makes impossible, GRACE preserves the <em>uni-modal pairwise relations</em> of the samples, capturing the global semantic structure of the model.</p-->
+        </div>
+    </section>
+
+    <section id="examples">
+        <div class="section-head">
+            <h2>🔍 Explore the decompositions</h2>
+        </div>
+        <div class="section-body">
+            <div class="tabs-row">
+                <div class="tabs" role="tablist" aria-label="Example domain">
+                    <button class="tab" role="tab" data-group="images" aria-selected="false"><span aria-hidden="true">🖼️</span> Images</button>
+                    <button class="tab" role="tab" data-group="egocentric" aria-selected="true"><span aria-hidden="true">👓</span> Egocentric videos</button>
+                    <!-- ConVisBench tab, hidden (its examples are still in examples.js; also uncomment its GROUPS entry in assets/main.js)
+                    <button class="tab" role="tab" data-group="convisbench" aria-selected="false"><span aria-hidden="true">🎬</span> ConVisBench videos</button>
+                    -->
+                </div>
+            </div>
+            <p class="group-desc" id="group-desc"></p>
+            <div class="example-grid" id="example-grid" aria-live="polite"></div>
+            <p class="footer-note">Top-5 reconstruction weights <span class="math">w<sub>i</sub></span> predicted by the released checkpoints, shown as they come out of the model (not filtered). The weights are a softmax over the whole vocabulary, so their absolute values depend on its size; bars are scaled to the largest weight of each example. <span id="examples-selection">Examples hand-picked from random samples.</span></p>
+        </div>
+    </section>
+
+    <section id="grounding">
+        <div class="section-head">
+            <h2>📍 Where are the concepts? Visual grounding</h2>
+        </div>
+        <div class="section-body">
+            <div class="grounding-intro">
+                <div class="prose">
+                    <p>
+                        In CLIP and the Perception Encoder the spatial patch embeddings are not text-aligned, which prevents patch-level concept decompositions.
+                        In <strong>TIPSv2</strong> they are: we train GRACE on its CLS embeddings with the usual objective, then apply <strong>the same decomposition
+                        to spatial patches</strong> at inference time.
+                        This allows to detect where each concept is in the image, without any segmentation supervision.
+                    </p>
+                    <p class="note">
+                        Click a concept to see its patch-level reconstruction weights. The top-3 concepts come from the decomposition of the CLS embedding.
+                </div>
+                <div class="result-card auprc-card">
+                    <h3>Concept grounding on ADE20k (AUPRC)</h3>
+                    <ul class="auprc" aria-label="Concept grounding AUPRC on ADE20k">
+                        <li><span class="auprc-name">BLIP-2</span><span class="auprc-bar"><span style="width: 20.3%"></span></span><span class="auprc-value">0.098</span></li>
+                        <li><span class="auprc-name">LLaVA-NeXT</span><span class="auprc-bar"><span style="width: 62.7%"></span></span><span class="auprc-value">0.302</span></li>
+                        <li><span class="auprc-name">ConceptScope</span><span class="auprc-bar"><span style="width: 82.8%"></span></span><span class="auprc-value">0.399</span></li>
+                        <li class="ours"><span class="auprc-name">GRACE (TIPSv2)</span><span class="auprc-bar"><span style="width: 100%"></span></span><span class="auprc-value">0.482</span></li>
+                    </ul>
+                    <!--<p class="remark">Best class&ndash;concept mapping chosen on the training set, following ConceptScope&rsquo;s protocol (Table 9 of the paper).</p>-->
+                </div>
+            </div>
+            <div class="grounding-grid" id="grounding-grid"></div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-head">
+            <h2>🎯 Key Results on image and video benchmarks</h2>
+        </div>
+        <div class="section-body">
+            <div class="results-grid">
+                <article class="result-card">
+                    <h3>🎥 Video similarity estimation</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr><th>Model</th><th>Avg. &rho; / &tau;</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="muted-row"><td>Perception Encoder</td><td>51.7 / 36.7</td></tr>
+                                <tr><td>Qwen2.5-VL</td><td>42.5 / 29.6</td></tr>
+                                <tr><td>SpLiCE</td><td>50.9 / 35.4</td></tr>
+                                <tr class="ours"><td>GRACE</td><td><strong>56.3 / 40.1</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="remark">Average correlation with human similarity judgments: GRACE&rsquo;s concept weights are the <strong>best match with human perception</strong>.</p>
+                </article>
+
+                <article class="result-card">
+                    <h3>🏃 Video retrieval</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr><th>Method</th><th>Intra</th><th>Inter</th><th>Faith.</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="muted-row"><td>Perception Encoder</td><td>37.64</td><td>84.88</td><td>&ndash;</td></tr>
+                                <tr><td>SpLiCE</td><td>34.60</td><td>79.04</td><td>70.36</td></tr>
+                                <tr><td>EXPLAIN-R</td><td>30.10</td><td>76.17</td><td>63.70</td></tr>
+                                <tr class="ours"><td>GRACE</td><td><strong>35.43</strong></td><td><strong>81.35</strong></td><td><strong>77.86</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="remark">Trained on EgoClip, evaluated zero-shot. GRACE produces the <strong>most faithful</strong> reconstructions without per-sample optimization.</p>
+                </article>
+
+                <article class="result-card">
+                    <h3>🖼️ Zero-shot image classification</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr><th>Method</th><th>ImageNet</th><th>Flowers102</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="muted-row"><td>CLIP ViT-B/32</td><td>61.92 / &ndash;</td><td>63.39 / &ndash;</td></tr>
+                                <tr><td>SpLiCE</td><td>42.91 / 51.33</td><td>&ndash; / 26.12</td></tr>
+                                <tr><td>EXPLAIN-R</td><td><strong>50.77</strong> / 50.19</td><td>15.51 / 16.59</td></tr>
+                                <tr class="ours"><td>GRACE</td><td>48.04 / <strong>60.15</strong></td><td><strong>32.14 / 41.78</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="remark">Acc. / Faith. on ImageNet and Flowers102. The model is trained on ImageNet but <strong>transfers well across domains</strong>.</p>
+                </article>
+            </div>
+            <br>    
+            <!-- TODO: paper link (same as the Paper button) -->
+            <p class="more-results"><a href="#">More results in the paper &rarr;</a></p>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-head">
+            <h2>🧭 Robustness &amp; bias</h2>
+        </div>
+        <div class="section-body">
+            <div class="debug-grid">
+                <article class="result-card">
+                    <h3>Robust to concept shift</h3>
+                    <p class="remark top">We split the ImageNet classes into five folds that minimize the concept overlap between training and test classes, train GRACE on the 800 training classes of each fold and test it zero-shot on the 200 held-out ones.</p>
+                    <div class="chart-legend" aria-hidden="true">
+                        <span><i class="swatch grace"></i>GRACE</span>
+                        <span><i class="swatch explainr"></i>EXPLAIN-R</span>
+                        <span><i class="swatch neutral"></i>trained on all classes</span>
+                        <span><i class="swatch neutral hatched"></i>test classes held out</span>
+                    </div>
+                    <div class="fold-chart" id="fold-chart" role="img" aria-label="Top-1 accuracy on the held-out classes of each ImageNet fold, with and without concept shift. Averages: GRACE 47.36 without shift, 41.39 with shift; EXPLAIN-R 48.15 without shift, 38.92 with shift."></div>
+                </article>
+
+                <article class="result-card">
+                    <h3>Bias analysis on ImageNet</h3>
+                    <p class="remark top">Most activated concepts, averaged over the images of a class, reveal what the model associates with it.</p>
+                    <ul class="bias-list">
+                        <li><span class="bias-label">volcano</span><span class="chips"><span class="chip">volcano</span><span class="chip hl">chile</span><span class="chip">view towards</span><span class="chip hl">indonesia</span></span></li>
+                        <li><span class="bias-label">rickshaw</span><span class="chips"><span class="chip hl">tokyo</span><span class="chip">flower delivery</span><span class="chip">bike</span><span class="chip">fast delivery</span></span></li>
+                        <li><span class="bias-label">cassette player</span><span class="chips"><span class="chip hl">casio g</span><span class="chip">radio station</span><span class="chip">cassette</span></span></li>
+                        <li><span class="bias-label">digital clock</span><span class="chips"><span class="chip">clock</span><span class="chip hl">casio g</span><span class="chip">temperature</span><span class="chip">heartbeat</span></span></li>
+                        <li><span class="bias-label">digital watch</span><span class="chips"><span class="chip hl">casio g</span><span class="chip">chronograph</span><span class="chip">clock</span><span class="chip">time</span></span></li>
+                        <li><span class="bias-label">oscilloscope</span><span class="chips"><span class="chip">ultrasound</span><span class="chip">heartbeat</span><span class="chip">synthesis</span><span class="chip hl">casio g</span></span></li>
+                    </ul>
+                    <p class="remark">Strong <strong>entity&ndash;location correlations</strong> (volcanoes &rarr; Chile, Indonesia; rickshaws &rarr; Tokyo), and &ldquo;casio g&rdquo; often fires for devices with a digital display, even when they are not watches.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="cite">
+        <div class="section-head">
+            <h2>📚 Cite us</h2>
+            <button class="copy-btn" id="copy-bibtex" type="button">Copy</button>
+        </div>
+        <div class="section-body">
+<pre class="bibtex" id="bibtex">@inproceedings{peirone2026grace,
+  title     = {A General Concept-based Decomposition for Vision-Language Embeddings},
+  author    = {Peirone, Simone Alberto and Senouf, Ortal and Pistilli, Francesca and Averta, Giuseppe and Frossard, Pascal},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2026}
+}</pre>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-head">
+            <h2>Acknowledgements</h2>
+        </div>
+        <div class="section-body">
+            <p class="ack">
+                This study was carried out within the FAIR - Future Artificial Intelligence Research and received funding from the European Union Next-GenerationEU
+                (PIANO NAZIONALE DI RIPRESA E RESILIENZA (PNRR) &ndash; MISSIONE 4 COMPONENTE 2, INVESTIMENTO 1.3 &ndash; D.D. 1555 11/10/2022, PE00000013).
+                This manuscript reflects only the authors&rsquo; views and opinions, neither the European Union nor the European Commission can be considered responsible for them.
+                We acknowledge the CINECA award under the ISCRA initiative, for the availability of high performance computing resources and support.
+            </p>
+        </div>
+    </section>
+</main>
+
+<script src="assets/examples.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>

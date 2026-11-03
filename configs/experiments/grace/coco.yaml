@@ -1,0 +1,20 @@
+# @package _global_
+defaults:
+  - /_base_image_
+  - /model@model: grace
+  - /dataset@dataset: coco
+  - _self_
+
+model: ???
+dataset: ???
+dataset_name: coco
+
+# Retrieval is computed in-batch (a square similarity matrix per batch, averaged across
+# batches), so batch_size directly determines the reported R@k: 1000, as in the paper.
+batch_size: 1000
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components

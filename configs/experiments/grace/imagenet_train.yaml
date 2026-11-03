@@ -1,0 +1,39 @@
+# @package _global_
+# Training GRACE on ImageNet (CLIP ViT-B/32 features, ImageNet caption-lemma vocabulary) with
+# train_image.py: the recipe of checkpoints/image/grace.pt.
+defaults:
+  - /_base_image_
+  - /model@model: grace
+  - _self_
+
+name: grace_imagenet
+seed: 42
+
+model:
+  # Differences from the video recipe (configs/components/model/grace.yaml defaults)
+  loss_weight_ent_reg: 0.1
+  dirichlet_alpha: 0.1
+  # The image checkpoints center on the ImageNet visual mean and gate at 0.05
+  center_before_activations: True
+  threshold: 0.05
+
+# 15,162 unique lemmas from the BLIP-2 captions of ImageNet train (pos,lemma table)
+concepts_path: data/concepts_vocs/image/imagenet_lemmas.csv
+# Precomputed CLIP ViT-B/32 features of ImageNet train, in ImageFolder order
+features_path: ${data_root}/imagenet/train_features_clip_ViT-B-32.pt
+imagenet_root: ${data_root}/imagenet
+
+num_epochs: 25
+batch_size: 512
+# Adam, no schedule: 1e-4 scaled by batch_size / 256
+lr: 2.0e-4
+# Every `val_freq` epochs, the reconstruction contrastive loss is computed over the training set
+# (in eval mode, batches of `val_batch_size`); the checkpoint with the lowest one is kept.
+val_freq: 5
+val_batch_size: 1024
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components

@@ -1,0 +1,5 @@
+# Splice Model
+
+_target_: models.splice.SpLiCE
+solver: admm
+l1_penalty: 0.1

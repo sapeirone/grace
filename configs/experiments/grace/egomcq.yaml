@@ -1,0 +1,16 @@
+# @package _global_
+defaults:
+  - /_base_
+  - /model@model: grace
+  - _self_
+
+model: ???
+
+# Run name, used for the checkpoint directory (checkpoints/runs/<timestamp>_<name>/)
+name: grace
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components

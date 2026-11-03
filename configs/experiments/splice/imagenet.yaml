@@ -1,0 +1,22 @@
+# @package _global_
+defaults:
+  - /_base_image_
+  - /model@model: splice
+  - /dataset@dataset: imagenet
+  - _self_
+
+dataset: ???
+dataset_name: imagenet
+
+model:
+  l1_penalty: 0.25
+
+concepts_path: data/concepts_vocs/image/laion_bigrams.txt
+# Mean CLIP ViT-B/32 visual feature over the evaluated split; computed and saved here on first run.
+visual_mean_path: data/means/imagenet_val_clip_ViT-B-32.pt
+
+hydra:
+  searchpath:
+    - file://configs/
+    - file://configs/experiments
+    - file://configs/components
