@@ -11,8 +11,7 @@ To avoid downloading huge videos we set a cap on their duration.
 To correctly understand the goodness of GRACE + eligibility traces on both temporal and space grounding there are two key arguments:
 - minDur: this indicates the minimum duration of a clip. This is essential because providing a clip that is too short neglects the 
 possibility to correctly evaluate the eligbility traces
-- minObj: this indicates the minimum number of objects inside the clip. We want this number to be at least > 0, because we are using this 
-dataset as a benchmark for the object grounding also.
+- minObj: this indicates the minimum number of objects inside the clip. We want this number to be at least > 0.
 
 In conclusion: this module prepares the data, by selecting the videos to be downloaded and to be passed to SAM3 to generate the benchmark.
 """
@@ -26,8 +25,13 @@ def parse_args(args = sys.argv[1:]):
     parser.add_argument("--nSamples", type=int, default=100, help="number of samples (which is different from number of videos)")
     parser.add_argument("--minDur", type=float, default=5.0, help="minimum duration of the sample (unit of measure: seconds)")
     parser.add_argument("--minObj", type=int, default=1, help="minimum number of objects")
-    parser.add_argument("--maxVidDur", type=float, default=500, help="maximum duration of the whole video (unit of measure: seconds)")
+    parser.add_argument("--maxVidDur", type=float, default=600, help="maximum duration of the whole video (unit of measure: seconds)")
     return parser.parse_args(args)
+
+def check_args(args):
+    if args.minDur <= 3.0: raise ValueError("Please set a higher minimum duration (minimum = 5s)")
+    if args.minObj <= 0: raise ValueError("Please set a higher minimum number of objects (minimum = 1)")
+    if args.maxVidDur <= 3.0 or args.maxVidDur > 900: raise ValueError("Please set a proper maximum video duration ([3.0, 900.0])")
 
 def clean_df(df: pd.DataFrame, args) -> pd.DataFrame:
     """
@@ -55,6 +59,8 @@ def clean_df(df: pd.DataFrame, args) -> pd.DataFrame:
 
 
 def main(args):
+
+    check_args(args)
 
     # We first check if there is the file
     subprocess.run(
