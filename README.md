@@ -66,7 +66,7 @@ for each dataset and for the precomputed features.
 ## 🐘 Model Zoo
 
 <!-- TODO: replace the placeholder link below with the checkpoints link -->
-Download the checkpoints from [this link](https://TODO-checkpoints-link) and place them in the `checkpoints/`
+Download the checkpoints from [https://github.com/sapeirone/grace/releases/download/v1.0/grace_ckpts.zip](https://github.com/sapeirone/grace/releases/download/v1.0/grace_ckpts.zip) and place them in the `checkpoints/`
 directory of the repository: the video checkpoints (`.pth`) in `checkpoints/video/`, the image ones (`.pt`)
 in `checkpoints/image/`. All commands refer to them by these paths, e.g. `checkpoints/video/grace.pth`.
 
